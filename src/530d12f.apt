@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?AutomationStudio Version=4.1.7.61 SP?>
+<AcoposParameterTable>
+  <Root Name="Parameters">
+    <Group Name="Siemens 1FW6190-8VB15-5G">
+      <Group Name="Allgemeine Parameter">
+        <Parameter Name="MOTOR_TYPE" ID="30" Value="0x0002" Description="Motor: Typ" />
+        <Parameter Name="MOTOR_COMPATIBILITY" ID="31" Value="0x0201" Description="Motor: SoftwarekompatibilitÃ¤t" />
+        <Parameter Name="MOTOR_WIND_CONNECT" ID="46" Value="1" Description="Motor: Wicklungsverschaltung" />
+        <Parameter Name="MOTOR_POLEPAIRS" ID="47" Value="35" Description="Motor: Polpaarzahl" />
+      </Group>
+      <Group Name="Brems-Parameter">
+        <Parameter Name="MOTOR_BRAKE_CURR_RATED" ID="42" Value="0" Unit="A" Description="Motor-Haltebremse: Nennstrom" />
+        <Parameter Name="MOTOR_BRAKE_TORQ_RATED" ID="43" Value="0" Unit="Nm" Description="Motor-Haltebremse: Nennmoment" />
+        <Parameter Name="MOTOR_BRAKE_ON_TIME" ID="44" Value="0" Unit="s" Description="Motor-Haltebremse: VerzÃ¶gerungszeit Blockieren" />
+        <Parameter Name="MOTOR_BRAKE_OFF_TIME" ID="45" Value="0" Unit="s" Description="Motor-Haltebremse: VerzÃ¶gerungszeit LÃ¼ften" />
+      </Group>
+      <Group Name="Thermo-Sensor-Parameter">
+        <Parameter Name="MOTOR_TEMPSENS_PAR1" ID="64" Value="900" Description="Motor: Temperatursensor-Parameter 1" />
+        <Parameter Name="MOTOR_TEMPSENS_PAR2" ID="65" Value="1650" Description="Motor: Temperatursensor-Parameter 2" />
+        <Parameter Name="MOTOR_TEMPSENS_PAR3" ID="66" Value="-26" Description="Motor: Temperatursensor-Parameter 3" />
+        <Parameter Name="MOTOR_TEMPSENS_PAR4" ID="67" Value="2" Description="Motor: Temperatursensor-Parameter 4" />
+        <Parameter Name="MOTOR_TEMPSENS_PAR5" ID="68" Value="30" Description="Motor: Temperatursensor-Parameter 5" />
+        <Parameter Name="MOTOR_TEMPSENS_PAR6" ID="69" Value="58" Description="Motor: Temperatursensor-Parameter 6" />
+        <Parameter Name="MOTOR_TEMPSENS_PAR7" ID="70" Value="86" Description="Motor: Temperatursensor-Parameter 7" />
+        <Parameter Name="MOTOR_TEMPSENS_PAR8" ID="71" Value="114" Description="Motor: Temperatursensor-Parameter 8" />
+        <Parameter Name="MOTOR_TEMPSENS_PAR9" ID="72" Value="142" Description="Motor: Temperatursensor-Parameter 9" />
+        <Parameter Name="MOTOR_TEMPSENS_PAR10" ID="73" Value="170" Description="Motor: Temperatursensor-Parameter 10" />
+        <Parameter Name="MOTOR_THERMAL_CONST" ID="75" Value="0" Unit="s" Description="Motor: Thermische Zeitkonstante (fÃ¼r MOTOR_COMPATIBILITY 0x0202)" />
+      </Group>
+      <Group Name="Motorparameter">
+        <Parameter Name="MOTOR_VOLTAGE_RATED" ID="48" Value="424" Unit="V" Description="Motor: Nennspannung" />
+        <Parameter Name="MOTOR_VOLTAGE_CONST" ID="49" Value="2080" Unit="mV*min" Description="Motor: Spannungskonstante" />
+        <Parameter Name="MOTOR_SPEED_RATED" ID="50" Value="145" Unit="1/min" Description="Motor: Nenndrehzahl" />
+        <Parameter Name="MOTOR_SPEED_MAX" ID="51" Value="195" Unit="1/min" Description="Motor: Maximaldrehzahl" />
+        <Parameter Name="MOTOR_TORQ_STALL" ID="52" Value="1680" Unit="Nm" Description="Motor: Stillstandsmoment" />
+        <Parameter Name="MOTOR_TORQ_RATED" ID="53" Value="1680" Unit="Nm" Description="Motor: Nennmoment" />
+        <Parameter Name="MOTOR_TORQ_MAX" ID="54" Value="3760" Unit="Nm" Description="Motor: Spitzenmoment" />
+        <Parameter Name="MOTOR_TORQ_CONST" ID="55" Value="34.56" Unit="Nm/A" Description="Motor: Momentkonstante" />
+        <Parameter Name="MOTOR_CURR_STALL" ID="56" Value="48.6" Unit="A" Description="Motor: Stillstandsstrom" />
+        <Parameter Name="MOTOR_CURR_RATED" ID="57" Value="48.6" Unit="A" Description="Motor: Nennstrom" />
+        <Parameter Name="MOTOR_CURR_MAX" ID="58" Value="164.5" Unit="A" Description="Motor: Spitzenstrom" />
+        <Parameter Name="MOTOR_WIND_CROSS_SECT" ID="59" Value="10" Unit="mm²" Description="Motor: Strangquerschnitt" />
+        <Parameter Name="MOTOR_STATOR_RESISTANCE" ID="60" Value="1.017" Unit="Ohm" Description="Motor: Statorwiderstand" />
+        <Parameter Name="MOTOR_STATOR_INDUCTANCE" ID="61" Value="0.01191" Unit="Henry" Description="Motor: StatorinduktivitÃ¤t" />
+        <Parameter Name="MOTOR_INERTIA" ID="62" Value="1.54" Unit="kgm²" Description="Motor: TrÃ¤gheitsmoment" />
+        <Parameter Name="MOTOR_COMMUT_OFFSET" ID="63" Value="0" Unit="rad" Description="Motor: Kommutierungsoffset" />
+      </Group>
+      <Group Name="Isolationsparameter">
+        <Parameter Name="MOTOR_WIND_TEMP_MAX" ID="74" Value="155" Unit="°C" Description="Motor: Maximal zulÃ¤ssige Wicklungstemperatur" />
+      </Group>
+      <Group Name="Kommutierung">
+        <Parameter Name="PHASING_MODE" ID="276" Value="0" Description="Motor: Einphasen: Modus" />
+        <Parameter Name="PHASING_CURR" ID="275" Value="35" Unit="A" Description="Motor: Einphasen: Strom" />
+      </Group>
+    </Group>
+  </Root>
+</AcoposParameterTable>
