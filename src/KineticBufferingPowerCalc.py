@@ -245,14 +245,14 @@ class Axis:
 
 if __name__ == '__main__':
     # example torque motor
-    motor = Axis("530d12f.apt", iGear=1, loadInertia= 4270, speedPowerfail=0.5, 
+    motor = Axis("530d12f.apt", iGear=1, loadInertia= 4270, speedPowerfail=1.5, 
                                 Pfriction=7000, UDC_NOMINAL= 620, 
                                 DCbusCapacity= 1650 + 0.22 + 990 + 8 * 990 # 8BVP0880 + 8B0C0320 + 8BVI0440 + 8*8BVI0330
                                 )
     motor.plotPower() 
  
     # example induction motor with gear
-    motor = Axis("2kj3507p.apt", iGear = 25, loadInertia=4270, speedPowerfail=0.5, 
+    motor = Axis("2kj3507p.apt", iGear = 25, loadInertia=4270, speedPowerfail=1.5, 
                                 Pfriction=7000, UDC_NOMINAL= 620, 
                                 DCbusCapacity= 1650 + 0.22 + 990 + 8 * 990 # 8BVP0880 + 8B0C0320 + 8BVI0440 + 8*8BVI0330
                                 )
