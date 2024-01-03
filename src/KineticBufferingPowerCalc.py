@@ -150,7 +150,7 @@ class Axis:
         Kt = self.MOTOR_TORQ_CONST
         Rspp = self.MOTOR_STATOR_RESISTANCE
         nN = 100/60
-        n0 = 0.52
+        n0 = self.nPowerFail
         iqmax = self.MOTOR_CURR_MAX * np.sqrt(2)
         n = np.linspace(0, nN, 11)
         iq = np.linspace(0, iqmax, 101)
@@ -184,7 +184,7 @@ class Axis:
         kt = np.sqrt(2) * kt_nom
 
         n = np.linspace(0, self.MOTOR_SPEED_RATED/60, 11)
-        n0 = 0.52
+        n0 = self.nPowerFail
         iqmax = self.MOTOR_CURR_MAX * np.sqrt(2)        
         iq = np.linspace(0, iqmax, 101)
 
@@ -192,7 +192,7 @@ class Axis:
 
         Ploss = 3/2 * iq**2 * rs + 3/2 * i0**2 * rs # power loss due to stator resistance
         Pshaft = kt / np.sqrt(2) * 2 * np.pi * np.outer(n, iq)
-        Pregen0 = kt / np.sqrt(2) * 2 * np.pi * n0 - Ploss
+        Pregen0 = kt / np.sqrt(2) * 2 * np.pi * n0 * iq - Ploss
         Pregen = Pshaft - Ploss
 
         self._plotPregen( axs[0,0], Pregen, Pregen0, iq, n, n0 )
@@ -217,7 +217,7 @@ class Axis:
         # print some values 
         axs[1,2].axis('off')
         preconditions = (
-            f'motor shaft speed @ powerfail = { round(self.nPowerFail,2)} 1/s',
+            f'n0 (motor shaft speed @ powerfail) = { round(self.nPowerFail,2)} 1/s',
             f'P Friction = { round(self.Pfriction)} W',
             f'E rotation = { round(self.Erot/1000)} kJ',
             f'E DC bus capacity = { round(self.Ecap/1000)} kJ',
