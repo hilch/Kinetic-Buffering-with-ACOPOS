@@ -16,7 +16,8 @@ class Axis:
                  speedPowerfail = 10.0, 
                  Pfriction = 0, 
                  UDC_NOMINAL = 750,
-                 DCbusCapacity = 1650
+                 DCbusCapacity = 1650,
+                 lineResistance = 0.0
                    ):
         '''
 
@@ -28,12 +29,14 @@ class Axis:
             Pfriction : fiction power which consumes the kinetic energy, e.g. MOTOR_TERMINAL_POWER  [W]
             UDC_NOMINAL : nominal DC bus voltage before powerfail
             DCbusCapacity : DC bus capacity [µF]
+            lineResistance: Resistance of one line beetween ACOPOS-connector and motor-connector
         '''
 
         self.motorShaftInertia = loadInertia / iGear**2
         self.speedPowerfail = speedPowerfail
         self.nPowerFail = speedPowerfail * iGear # motor shaft speed in case of powerfail [1/s]
         self.Pfriction = Pfriction
+        self.lineResistance = lineResistance
         self.Ecap = 1/2 * (DCbusCapacity/1.0e6) * UDC_NOMINAL**2  # electrical energy before powerfail
 
         # read ACOPOS parameter table with motor specification
@@ -159,7 +162,7 @@ class Axis:
 
         self.iqBuffer = self.Pfriction/(2*np.pi*self.nPowerFail*Kt)*np.sqrt(2)
 
-        Ploss = 3/2* iq**2 * Rspp/2 # loss due to stator resistance
+        Ploss = 3/2* iq**2 * (Rspp/2 + self.lineResistance) # loss due to copper resistance
         Pshaft = Kt / np.sqrt(2) * 2 * np.pi * np.outer( n, iq)
         Pregen = Pshaft - Ploss
         Pshaft0 = Kt / np.sqrt(2) * 2 * np.pi * n0 * iq
@@ -193,7 +196,7 @@ class Axis:
 
         self.iqBuffer = self.Pfriction/(2*np.pi*self.nPowerFail*kt)*np.sqrt(2)
 
-        Ploss = 3/2 * iq**2 * rs + 3/2 * i0**2 * rs # power loss due to stator resistance
+        Ploss = 3/2 * iq**2 * (rs+self.lineResistance) + 3/2 * i0**2 * (rs+self.lineResistance) # power loss due to copper resistance
         Pshaft = kt / np.sqrt(2) * 2 * np.pi * np.outer(n, iq)
         Pshaft0 = kt / np.sqrt(2) * 2 * np.pi * n0 * iq
         Pregen0 = Pshaft0 - Ploss
@@ -249,17 +252,21 @@ class Axis:
         
 
 if __name__ == '__main__':
+    lineResistance = 0.0175 * 20 / 16
+
     # example torque motor
     motor = Axis("530d12f.apt", iGear=1, loadInertia= 4270, speedPowerfail=1.5, 
                                 Pfriction=7000, UDC_NOMINAL= 620, 
-                                DCbusCapacity= 1650 + 0.22 + 990 + 8 * 990 # 8BVP0880 + 8B0C0320 + 8BVI0440 + 8*8BVI0330
+                                DCbusCapacity= 1650 + 0.22 + 990 + 8 * 990, # 8BVP0880 + 8B0C0320 + 8BVI0440 + 8*8BVI0330
+                                lineResistance= lineResistance
                                 )
     motor.plotPower() 
  
     # example induction motor with gear
     motor = Axis("2kj3507p.apt", iGear = 25, loadInertia=4270, speedPowerfail=1.5, 
                                 Pfriction=7000, UDC_NOMINAL= 620, 
-                                DCbusCapacity= 1650 + 0.22 + 990 + 8 * 990 # 8BVP0880 + 8B0C0320 + 8BVI0440 + 8*8BVI0330
+                                DCbusCapacity= 1650 + 0.22 + 990 + 8 * 990, # 8BVP0880 + 8B0C0320 + 8BVI0440 + 8*8BVI0330
+                                lineResistance= lineResistance
                                 )
     motor.plotPower()
 
