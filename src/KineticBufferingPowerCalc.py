@@ -31,6 +31,7 @@ class Axis:
         '''
 
         self.motorShaftInertia = loadInertia / iGear**2
+        self.speedPowerfail = speedPowerfail
         self.nPowerFail = speedPowerfail * iGear # motor shaft speed in case of powerfail [1/s]
         self.Pfriction = Pfriction
         self.Ecap = 1/2 * (DCbusCapacity/1.0e6) * UDC_NOMINAL**2  # electrical energy before powerfail
@@ -101,12 +102,13 @@ class Axis:
         ax.grid(True)
 
 
-    def _plotPshaft(self, ax, Pshaft, iq, n, n0):
+    def _plotPshaft(self, ax, Pshaft, Pshaft0, iq, n, n0):
         '''
         plot motor shaft power as function of current
         '''
         for i in range(len(n)):
             ax.plot(iq, Pshaft[i], '--')
+        ax.plot(iq, Pshaft0, 'r', linewidth=2)            
         ax.set_xlabel('quadrature current [A]')
         ax.set_ylabel('shaft power [W]')
         ax.legend(['n = ' + str(round(n, 2)) for n in n] + ['n0 = ' + str(round(n0, 2))])
@@ -160,10 +162,11 @@ class Axis:
         Ploss = 3/2* iq**2 * Rspp/2 # loss due to stator resistance
         Pshaft = Kt / np.sqrt(2) * 2 * np.pi * np.outer( n, iq)
         Pregen = Pshaft - Ploss
-        Pregen0 = Kt / np.sqrt(2) * 2 * np.pi * n0 * iq - Ploss
+        Pshaft0 = Kt / np.sqrt(2) * 2 * np.pi * n0 * iq
+        Pregen0 = Pshaft0 - Ploss
 
         self._plotPregen( axs[0,0], Pregen, Pregen0, iq, n, n0 )
-        self._plotPshaft( axs[0,1], Pshaft, iq, n, n0 )
+        self._plotPshaft( axs[0,1], Pshaft, Pshaft0, iq, n, n0 )
         self._plotPloss( axs[0,2], Ploss, iq )
         self._plotBufferDuration( axs[1,0], Ploss, iq )
 
@@ -192,11 +195,12 @@ class Axis:
 
         Ploss = 3/2 * iq**2 * rs + 3/2 * i0**2 * rs # power loss due to stator resistance
         Pshaft = kt / np.sqrt(2) * 2 * np.pi * np.outer(n, iq)
-        Pregen0 = kt / np.sqrt(2) * 2 * np.pi * n0 * iq - Ploss
+        Pshaft0 = kt / np.sqrt(2) * 2 * np.pi * n0 * iq
+        Pregen0 = Pshaft0 - Ploss
         Pregen = Pshaft - Ploss
 
         self._plotPregen( axs[0,0], Pregen, Pregen0, iq, n, n0 )
-        self._plotPshaft( axs[0,1], Pshaft, iq, n, n0 )
+        self._plotPshaft( axs[0,1], Pshaft, Pshaft0, iq, n, n0 )
         self._plotPloss( axs[0,2], Ploss, iq )
         self._plotBufferDuration( axs[1,0], Ploss, iq)
 
@@ -217,7 +221,8 @@ class Axis:
         # print some values 
         axs[1,2].axis('off')
         preconditions = (
-            f'n0 (motor shaft speed @ powerfail) = { round(self.nPowerFail,2)} 1/s',
+            f'speed0 (load speed @ powerfail) = { round(self.speedPowerfail,2)} s^-1',            
+            f'n0 (motor shaft speed @ powerfail) = { round(self.nPowerFail,2)} s^-1',
             f'P Friction = { round(self.Pfriction)} W',
             f'E rotation = { round(self.Erot/1000)} kJ',
             f'E DC bus capacity = { round(self.Ecap/1000)} kJ',
