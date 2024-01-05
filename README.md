@@ -16,33 +16,8 @@ the energy available when the mains is switched off is consumed by various pract
 
 This script tries to estimate the maximum buffering time depending on certain system parameters.
 
-## Formulas
+[some technical information](documentation.md)
 
-### kinetic energy of a rotating axis
-
-$`E = \frac{1}{2}\ * J * (2 * \pi\ * f)^2`$
-
-$`J`$ = total inertia
-
-$`f`$ = rotation frequency 
-
-### energy stored in DC bus
-
-$`E = \frac{1}{2}\ * C * U^2`$
-
-$`C`$ = total capacitance
-
-$`U`$ = DC bus voltage
-
-### power
-
-$`P = 2 * \pi\ * f * M`$
-
-$`M`$ = torque
-
-$`f`$ = rotation frequency 
-
-(to be continued)
 
 
 
