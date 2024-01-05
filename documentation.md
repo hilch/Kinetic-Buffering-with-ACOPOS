@@ -26,3 +26,11 @@ $`C`$ = total capacitance
 $`U`$ = DC bus voltage
 
 ### power
+
+$`P = 2 * \pi\ * f * M`$
+
+$`M`$ = torque
+
+$`f`$ = rotation frequency 
+
+
