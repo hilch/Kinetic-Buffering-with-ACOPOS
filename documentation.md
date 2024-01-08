@@ -21,11 +21,11 @@ $`n`$ = SCTRL_SPEED_ACT
 
 ## energy stored in DC bus
 
-$`E_{cap} = \frac{1}{2}\ * C * U^2`$
+$`E_{cap} = \frac{1}{2}\ * C * udc^2`$
 
 $`C`$ = total capacitance
 
-$`U`$ = UDC_ACT
+$`udc`$ = UDC_ACT
 
 ## inertia reduced by gear
 
