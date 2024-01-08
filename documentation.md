@@ -13,37 +13,30 @@
 
 ## kinetic energy of a rotating axis
 
-$`E = \frac{1}{2}\ * J * (2 * \pi\ * f)^2`$
+$`E_{rot} = \frac{1}{2}\ * J * (2 * \pi\ * n)^2`$
 
 $`J`$ = total inertia
 
-$`f`$ = rotation frequency 
+$`n`$ = SCTRL_SPEED_ACT
 
 ## energy stored in DC bus
 
-$`E = \frac{1}{2}\ * C * U^2`$
+$`E_{cap} = \frac{1}{2}\ * C * U^2`$
 
 $`C`$ = total capacitance
 
-$`U`$ = DC bus voltage
+$`U`$ = UDC_ACT
 
 ## inertia reduced by gear
 
-$`Jred = \frac{J}{(i^2)}\ `$
+$`Jred = \frac{J}{(r^2)}\ `$
 
-$`i`$ = gear reduction (>1)
+$`r`$ = gear ratio (>1)
 
-## power
 
-$`P = 2 * \pi\ * f * M`$
+## torque factor of an induction motor (IM)
 
-$`M`$ = torque
-
-$`f`$ = rotation frequency 
-
-## torque constant of an induction motor
-
-$`kt = \frac{3*lh^2*zp*im}{2*(lm+lr)}\ `$
+$`kt_{ASM} = \frac{\sqrt{2}*3*lh^2*zp*im}{2*(lm+lr)}\ `$
 
 $`zp`$ = MOTOR_POLEPAIRS
 
@@ -51,5 +44,16 @@ $`lh`$ = MOTOR_MUTUAL_INDUCTANCE
 
 $`lr`$ = MOTOR_ROTOR_INDUCTANCE
 
-$`im`$ = $`\sqrt(2)`$ * MOTOR_MAGNETIZING_CURR
+$`im`$ = $`\sqrt{2}`$ * MOTOR_MAGNETIZING_CURR
 
+## shaft power and torque
+
+$`P_{shaft} = 2 * \pi * n * M`$
+
+$`M = \frac{Kt}{\sqrt{2}}*iq `$
+
+$`n`$ = SCTRL_SPEED_ACT
+
+$`Kt`$ = MOTOR_TORQ_CONST (SM) or $`kt_{ASM}`$ (IM)
+
+$`iq`$ = ICTRL_ISQ_ACT
