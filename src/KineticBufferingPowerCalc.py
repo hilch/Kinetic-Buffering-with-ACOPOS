@@ -184,15 +184,14 @@ class Axis:
         '''
         induction motor
         '''        
-        fpolepairs = self.MOTOR_POLEPAIRS
-        i0 = np.sqrt(2) * self.MOTOR_MAGNETIZING_CURR
+        zp = self.MOTOR_POLEPAIRS
+        im = np.sqrt(2) * self.MOTOR_MAGNETIZING_CURR
         lh = self.MOTOR_MUTUAL_INDUCTANCE
         lr = self.MOTOR_MUTUAL_INDUCTANCE + self.MOTOR_ROTOR_INDUCTANCE
         rs = self.MOTOR_STATOR_RESISTANCE
 
         lr_inv = 1 / lr
-        kt_nom = 1.5 * np.sqrt(2) * fpolepairs * lh**2 * lr_inv * i0
-        kt = np.sqrt(2) * kt_nom
+        kt = 1.5 * np.sqrt(2) * zp * lh**2 * lr_inv * im
 
         n = np.linspace(0, self.MOTOR_SPEED_RATED/60, 11)
         iqmax = self.MOTOR_CURR_MAX * np.sqrt(2)        
@@ -200,8 +199,8 @@ class Axis:
 
         self.iqBuffer = self.frictionTorqueShaft/kt*np.sqrt(2) # iq at the time of buffering
 
-        Ploss = 3/2 * iq**2 * (rs+self.lineResistance) + 3/2 * i0**2 * (rs+self.lineResistance) # power loss due to copper resistance
-        Ploss0 = 3/2 * self.iqBuffer**2 * (rs+self.lineResistance) + 3/2 * i0**2 * (rs+self.lineResistance) # power loss due to copper resistance        
+        Ploss = 3/2 * iq**2 * (rs+self.lineResistance) + 3/2 * im**2 * (rs+self.lineResistance) # power loss due to copper resistance
+        Ploss0 = 3/2 * self.iqBuffer**2 * (rs+self.lineResistance) + 3/2 * im**2 * (rs+self.lineResistance) # power loss due to copper resistance        
         Pshaft = kt / np.sqrt(2) * 2 * np.pi * np.outer(n, iq)
         Pshaft0 = kt / np.sqrt(2) * 2 * np.pi * self.n0 * iq
         Pregen0 = Pshaft0 - Ploss
