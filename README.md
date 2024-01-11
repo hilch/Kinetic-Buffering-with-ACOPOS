@@ -18,6 +18,13 @@ This script tries to estimate the maximum buffering time depending on certain sy
 
 [some technical information](documentation.md)
 
+# Dependencies
+
+```
+pip install matplotlib
+```
+
+
 
 
 
