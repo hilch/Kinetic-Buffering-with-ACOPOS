@@ -75,6 +75,8 @@ class Axis:
                                     self.MOTOR_CURR_MAX = value
                                 case 'MOTOR_POLEPAIRS':
                                     self.MOTOR_POLEPAIRS = int(value)
+                                case 'MOTOR_ROTOR_RESISTANCE':
+                                    self.MOTOR_ROTOR_RESISTANCE = value                                    
                                 case 'MOTOR_STATOR_RESISTANCE':
                                     self.MOTOR_STATOR_RESISTANCE = value
                                 case 'MOTOR_MAGNETIZING_CURR':
@@ -164,10 +166,11 @@ class Axis:
         self.iqBuffer = self.frictionTorqueShaft/Kt*np.sqrt(2) # iq at the time of buffering
 
         Ploss = 3/2* iq**2 * (Rspp/2 + self.lineResistance) # loss due to copper resistance
-        Ploss0 = 3/2* self.iqBuffer**2 * (Rspp/2 + self.lineResistance) 
-
         Pshaft = Kt / np.sqrt(2) * 2 * np.pi * np.outer( n, iq)
         Pregen = Pshaft - Ploss
+
+        # t0
+        Ploss0 = 3/2* self.iqBuffer**2 * (Rspp/2 + self.lineResistance)         
         Pshaft0 = Kt / np.sqrt(2) * 2 * np.pi * self.n0 * iq
         Pregen0 = Pshaft0 - Ploss
 
@@ -185,26 +188,31 @@ class Axis:
         induction motor
         '''        
         zp = self.MOTOR_POLEPAIRS
-        im = np.sqrt(2) * self.MOTOR_MAGNETIZING_CURR
-        lh = self.MOTOR_MUTUAL_INDUCTANCE
-        lr = self.MOTOR_MUTUAL_INDUCTANCE + self.MOTOR_ROTOR_INDUCTANCE
+        i0 = np.sqrt(2)*self.MOTOR_MAGNETIZING_CURR
+        lm = self.MOTOR_MUTUAL_INDUCTANCE
+        lr = self.MOTOR_MUTUAL_INDUCTANCE+self.MOTOR_ROTOR_INDUCTANCE
         rs = self.MOTOR_STATOR_RESISTANCE
+        rr = self.MOTOR_ROTOR_RESISTANCE
+        kt = 3/2*zp*lm*lm/lr*i0*sqrt(2)
 
-        lr_inv = 1 / lr
-        kt = 1.5 * np.sqrt(2) * zp * lh**2 * lr_inv * im
-
-        n = np.linspace(0, self.MOTOR_SPEED_RATED/60, 11)
+        n =  np.linspace(0, 1, 11)* self.MOTOR_SPEED_RATED/60
         iqmax = self.MOTOR_CURR_MAX * np.sqrt(2)        
-        iq = np.linspace(0, iqmax, 101)
+        iq = np.linspace(0, 1, 101)*iqmax
 
         self.iqBuffer = self.frictionTorqueShaft/kt*np.sqrt(2) # iq at the time of buffering
 
-        Ploss = 3/2 * iq**2 * (rs+self.lineResistance) + 3/2 * im**2 * (rs+self.lineResistance) # power loss due to copper resistance
-        Ploss0 = 3/2 * self.iqBuffer**2 * (rs+self.lineResistance) + 3/2 * im**2 * (rs+self.lineResistance) # power loss due to copper resistance        
-        Pshaft = kt / np.sqrt(2) * 2 * np.pi * np.outer(n, iq)
-        Pshaft0 = kt / np.sqrt(2) * 2 * np.pi * self.n0 * iq
-        Pregen0 = Pshaft0 - Ploss
+        PlossStator = 3/2* (rs+self.lineResistance) * (iq**2 + i0**2) # loss at 25°C
+        PlossRotor =  3/2 * rr * lm/ lr * iq **2     # loss at 25°C
+        Ploss = PlossStator + PlossRotor
+        Pshaft = 2 * np.pi * np.outer(n, kt/ np.sqrt(2)*iq)
         Pregen = Pshaft - Ploss
+
+        # t0
+        PlossStator0 = 3/2 * (rs+self.lineResistance) * (self.iqBuffer**2 + i0**2)
+        PlossRotor0 =  3/2*rr*lm/lr*self.iqBuffer**2
+        Ploss0 = PlossStator0 + PlossRotor0
+        Pshaft0 = kt / np.sqrt(2) * 2 * np.pi * self.n0 * iq
+        Pregen0 = Pshaft0 - Ploss0
 
         self.tBuffer = (self.Erot+self.Ecap)/(Ploss0 + 2 * np.pi * self.n0 * self.frictionTorqueShaft) # max. buffer duration
 
@@ -267,7 +275,7 @@ class Axis:
 if __name__ == '__main__':
     lineResistance = 0.0175 * 20 / 16
     MOTOR_TERMINAL_POWER = 7000 # motor regenerative power at time of powerfail
-    speedPowerfail = 1.5 # load speed at time of powerfail
+    speedPowerfail = 1.5 # load speed at time of powerfail t0
     frictionTorque = MOTOR_TERMINAL_POWER/(2*np.pi*speedPowerfail) 
     description = 'idle run'
 
