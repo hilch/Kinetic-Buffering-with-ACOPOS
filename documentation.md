@@ -10,8 +10,8 @@ The motor parameters must be provided as [*.apt file](https://help.br-automation
 ## Parameters to be traced on buffering axis
 - [STAT_UDC_POWERFAIL](https://help.br-automation.com/#/en/4/ncsoftware%2Facp10_parameter%2Fhtml%2Fstat_udc_powerfail.htm) (367), Power mains status (0 = Ok, 2 = failure)
 - [MOTOR_TERMINAL_POWER](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/motor_terminal_power.htm) (844), elctrical Power at the motor terminals
-- [ICTRL_ISQ_ACT](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/ictrl_isq_act.htm) (214), isq, Actual stator current quadrature component
-- [ICTRL_ISD_ACT](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/ictrl_isd_act.htm) (219), isd, Actual stator current direct component
+- [ICTRL_ISQ_ACT](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/ictrl_isq_act.htm) (214), iq, Actual stator current quadrature component
+- [ICTRL_ISD_ACT](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/ictrl_isd_act.htm) (219), id, Actual stator current direct component
 - [UDC_ACT](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/udc_act.htm) (298), udc, Measured DC bus voltage
 - [SCTRL_SPEED_ACT](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/sctrl_speed_act.htm) (251), CTRL Speed controller: Actual speed
 - [MOTOR_TORQUE](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/torque_act.htm) (277), Torque
@@ -43,20 +43,20 @@ $`udc`$ = UDC_ACT
 
 ## inertia reduced by gear
 
-$`Jred = \frac{J}{(r^2)}\ `$
+$`Jred = \frac{J}{(R^2)}\ `$
 
-$`r`$ = gear ratio (>1)
+$`R`$ = gear ratio (>1)
 
 
 ## torque factor of an induction motor (IM)
 
-$`kt_{IM} = \frac{\sqrt{2}*3*lh^2*zp*im}{2*(lm+lr)}\ `$
+$`kt_{IM} = \frac{\sqrt{2}*3*Lh^2*Zp*im}{2*(Lm+Lr)}\ `$
 
-$`zp`$ = MOTOR_POLEPAIRS
+$`Zp`$ = MOTOR_POLEPAIRS
 
-$`lh`$ = MOTOR_MUTUAL_INDUCTANCE
+$`Lm`$ = MOTOR_MUTUAL_INDUCTANCE
 
-$`lr`$ = MOTOR_ROTOR_INDUCTANCE
+$`Lr`$ = MOTOR_ROTOR_INDUCTANCE
 
 $`im`$ = $`\sqrt{2}`$ * MOTOR_MAGNETIZING_CURR
 
@@ -69,6 +69,26 @@ $`M = \frac{Kt}{\sqrt{2}}*iq `$
 $`n`$ = SCTRL_SPEED_ACT
 
 $`Kt`$ = MOTOR_TORQ_CONST (SM) or $`kt_{IM}`$ (IM)
+
+$`iq`$ = ICTRL_ISQ_ACT
+
+## loss in stator winding @25°C
+$`P_{CuS} = \frac{3}{2}*Rs*(iq^2+im^2)`$
+
+$`Rs`$ = MOTOR_STATOR_RESISTANCE
+
+$`iq`$ = ICTRL_ISQ_ACT
+
+$`im`$ = $`\sqrt{2}`$ * MOTOR_MAGNETIZING_CURR (IM only)
+
+## loss in rotor winding @25°C (IM only)
+$`P_{CuR} = \frac{3}{2}*Rr*(\frac{Lm}{Lr}*iq)^2`$
+
+$`Rs`$ = MOTOR_STATOR_RESISTANCE
+
+$`Lm`$ = MOTOR_MUTUAL_INDUCTANCE
+
+$`Lr`$ = MOTOR_ROTOR_INDUCTANCE
 
 $`iq`$ = ICTRL_ISQ_ACT
 
