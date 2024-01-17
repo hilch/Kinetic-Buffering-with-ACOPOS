@@ -1,12 +1,26 @@
 # ACOPOS Parameters
+## Motor Parameters
 
-- motor parameter for synchronous or induction motor (*.apt file)
-- MOTOR_TERMINAL_POWER (844), elctrical Power at the motor terminals
-- ICTRL_ISQ_ACT (214), isq, Actual stator current quadrature component
-- ICTRL_ISD_ACT (219), isd, Actual stator current direct component
-- STAT_UDC_POWERFAIL, Power mains status (0 = Ok, 2 = failure)
-- UDC_ACT (298), udc, Measured DC bus voltage
-- SCTRL_SPEED_ACT (251), CTRL Speed controller: Actual speed
+The motor parameters must be provided as [*.apt file](https://help.br-automation.com/#/en/4/motion%2Fengineering%2Fmotion_control%2Fcfg_modules%2Fapt%2Fapt.html)
+
+[Synchronous motor](https://help.br-automation.com/#/en/4/ncsoftware%2Facp10_drivefunctions%2Fmotor%2Fsynchronmotor%2Fsynchronmotor_.html)
+
+[Induction motor](https://help.br-automation.com/#/en/4/ncsoftware%2Facp10_drivefunctions%2Fmotor%2Fasynchronmotor%2Fasynchronmotor_.html)
+
+## Parameters to be traced on buffering axis
+- [STAT_UDC_POWERFAIL](https://help.br-automation.com/#/en/4/ncsoftware%2Facp10_parameter%2Fhtml%2Fstat_udc_powerfail.htm) (367), Power mains status (0 = Ok, 2 = failure)
+- [MOTOR_TERMINAL_POWER](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/motor_terminal_power.htm) (844), elctrical Power at the motor terminals
+- [ICTRL_ISQ_ACT](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/ictrl_isq_act.htm) (214), isq, Actual stator current quadrature component
+- [ICTRL_ISD_ACT](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/ictrl_isd_act.htm) (219), isd, Actual stator current direct component
+- [UDC_ACT](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/udc_act.htm) (298), udc, Measured DC bus voltage
+- [SCTRL_SPEED_ACT](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/sctrl_speed_act.htm) (251), CTRL Speed controller: Actual speed
+- [MOTOR_TORQUE](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/torque_act.htm) (277), Torque
+
+## Parameters to be traced on consuming axes
+
+- [MOTOR_TERMINAL_POWER](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/motor_terminal_power.htm) (844), elctrical Power at the motor terminals
+- [SCTRL_SPEED_ACT](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/sctrl_speed_act.htm) (251), CTRL Speed controller: Actual speed
+- [MOTOR_TORQUE](https://help.br-automation.com/#/en/4/ncsoftware/acp10_parameter/html/torque_act.htm) (277), Torque
 
 
 # Formulas
