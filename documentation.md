@@ -3,9 +3,9 @@
 
 The motor parameters must be provided as [*.apt file](https://help.br-automation.com/#/en/4/motion%2Fengineering%2Fmotion_control%2Fcfg_modules%2Fapt%2Fapt.html)
 
-[Synchronous motor](https://help.br-automation.com/#/en/4/ncsoftware%2Facp10_drivefunctions%2Fmotor%2Fsynchronmotor%2Fsynchronmotor_.html)
+[Synchronous motor](https://help.br-automation.com/#/en/4/ncsoftware%2Facp10_drivefunctions%2Fmotor%2Fsynchronmotor%2Fsynchronmotor_.html) (SM)
 
-[Induction motor](https://help.br-automation.com/#/en/4/ncsoftware%2Facp10_drivefunctions%2Fmotor%2Fasynchronmotor%2Fasynchronmotor_.html)
+[Induction motor](https://help.br-automation.com/#/en/4/ncsoftware%2Facp10_drivefunctions%2Fmotor%2Fasynchronmotor%2Fasynchronmotor_.html) (IM)
 
 ## Parameters to be traced on buffering axis
 - [STAT_UDC_POWERFAIL](https://help.br-automation.com/#/en/4/ncsoftware%2Facp10_parameter%2Fhtml%2Fstat_udc_powerfail.htm) (367), Power mains status (0 = Ok, 2 = failure)
@@ -50,7 +50,7 @@ $`r`$ = gear ratio (>1)
 
 ## torque factor of an induction motor (IM)
 
-$`kt_{ASM} = \frac{\sqrt{2}*3*lh^2*zp*im}{2*(lm+lr)}\ `$
+$`kt_{IM} = \frac{\sqrt{2}*3*lh^2*zp*im}{2*(lm+lr)}\ `$
 
 $`zp`$ = MOTOR_POLEPAIRS
 
@@ -68,6 +68,8 @@ $`M = \frac{Kt}{\sqrt{2}}*iq `$
 
 $`n`$ = SCTRL_SPEED_ACT
 
-$`Kt`$ = MOTOR_TORQ_CONST (SM) or $`kt_{ASM}`$ (IM)
+$`Kt`$ = MOTOR_TORQ_CONST (SM) or $`kt_{IM}`$ (IM)
 
 $`iq`$ = ICTRL_ISQ_ACT
+
+
