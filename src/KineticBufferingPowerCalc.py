@@ -202,14 +202,14 @@ class Axis:
         self.iqBuffer = self.frictionTorqueShaft/kt*np.sqrt(2) # iq at the time of buffering
 
         PlossStator = 3/2* (rs+self.lineResistance) * (iq**2 + i0**2) # loss at 25°C
-        PlossRotor =  3/2 * rr * lm/ lr * iq **2     # loss at 25°C
+        PlossRotor =  3/2 * rr * (lm/ lr * iq) **2     # loss at 25°C
         Ploss = PlossStator + PlossRotor
         Pshaft = 2 * np.pi * np.outer(n, kt/ np.sqrt(2)*iq)
         Pregen = Pshaft - Ploss
 
         # t0
         PlossStator0 = 3/2 * (rs+self.lineResistance) * (self.iqBuffer**2 + i0**2)
-        PlossRotor0 =  3/2*rr*lm/lr*self.iqBuffer**2
+        PlossRotor0 =  3/2*rr*(lm/lr*self.iqBuffer)**2
         Ploss0 = PlossStator0 + PlossRotor0
         Pshaft0 = kt / np.sqrt(2) * 2 * np.pi * self.n0 * iq
         Pregen0 = Pshaft0 - Ploss0
