@@ -280,7 +280,7 @@ if __name__ == '__main__':
     description = 'idle run'
 
     # example torque motor
-    motor = Axis("530d12f.apt", description=description,
+    motor = Axis("m_sync.apt", description=description,
                                 iGear=1, loadInertia= 4270, speedPowerfail=speedPowerfail, 
                                 frictionTorque=frictionTorque, UDC_NOMINAL= 620, 
                                 DCbusCapacity= 1650 + 0.22 + 990 + 8 * 990, # 8BVP0880 + 8B0C0320 + 8BVI0440 + 8*8BVI0330
@@ -289,7 +289,7 @@ if __name__ == '__main__':
     motor.plotPower() 
  
     # example induction motor with gear
-    motor = Axis("2kj3507p.apt", description=description,
+    motor = Axis("m_ind.apt", description=description,
                                 iGear = 25, loadInertia=4270, speedPowerfail=speedPowerfail, 
                                 frictionTorque=frictionTorque, UDC_NOMINAL= 620, 
                                 DCbusCapacity= 1650 + 0.22 + 990 + 8 * 990, # 8BVP0880 + 8B0C0320 + 8BVI0440 + 8*8BVI0330

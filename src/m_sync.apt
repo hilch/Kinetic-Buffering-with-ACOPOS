@@ -2,7 +2,7 @@
 <?AutomationStudio Version=4.1.7.61 SP?>
 <AcoposParameterTable>
   <Root Name="Parameters">
-    <Group Name="Siemens 1FW6190-8VB15-5G">
+    <Group Name="synchronous motor">
       <Group Name="Allgemeine Parameter">
         <Parameter Name="MOTOR_TYPE" ID="30" Value="0x0002" Description="Motor: Typ" />
         <Parameter Name="MOTOR_COMPATIBILITY" ID="31" Value="0x0201" Description="Motor: SoftwarekompatibilitÃ¤t" />

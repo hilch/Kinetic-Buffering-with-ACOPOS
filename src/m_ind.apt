@@ -2,7 +2,7 @@
 <?AutomationStudio Version=4.1.7.61 SP?>
 <AcoposParameterTable>
   <Root Name="Parameters">
-    <Group Name="Siemens_2KG4301">
+    <Group Name="induction motor">
       <Group Name="Allgemeine_Parameter">
         <Parameter Name="MOTOR_TYPE" ID="30" Value="0x0001" Description="Motor: Typ" />
         <Parameter Name="MOTOR_COMPATIBILITY" ID="31" Value="0x0201" Description="Motor: SoftwarekompatibilitÃ¤t" />
